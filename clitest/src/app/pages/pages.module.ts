@@ -1,4 +1,3 @@
-import { NgChartsModule } from 'ng2-charts';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -28,7 +27,6 @@ import { ProgressComponent } from './progress/progress.component';
     AppRoutingModule,
     FormsModule,
     ComponentsModule,
-    NgChartsModule
   ],
   exports: [
     Grafica1Component,
