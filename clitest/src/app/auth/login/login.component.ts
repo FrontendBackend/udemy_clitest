@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, NgZone } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -16,7 +16,7 @@ export class LoginComponent implements AfterViewInit {
 
   public formSubmitted = false;
 
-  constructor(private router: Router, private fb: FormBuilder, private usuarioService: UsuarioService) { }
+  constructor(private router: Router, private fb: FormBuilder, private usuarioService: UsuarioService, private ngZone: NgZone) { }
 
   ngAfterViewInit(): void {
     this.googleInit();
@@ -30,14 +30,16 @@ export class LoginComponent implements AfterViewInit {
     google.accounts.id.renderButton(
       // document.getElementById("buttonDiv"),
       this.googleBtn.nativeElement,
-      { theme: "outline", size: "large" }  // customization attributes
+      { theme: "dark", size: "large" }  // customization attributes
     );
   }
 
   handleCredentialResponse(response: any) {
-    this.usuarioService.loginGoogle(response.credential).subscribe(resp =>{
+    this.usuarioService.loginGoogle(response.credential).subscribe(resp => {
       // console.log({login:resp});
-      this.router.navigateByUrl('/');
+      this.ngZone.run(() => {
+        this.router.navigateByUrl('/');
+      })
     })
   }
 
