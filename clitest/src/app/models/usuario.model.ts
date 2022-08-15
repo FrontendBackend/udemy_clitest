@@ -10,23 +10,20 @@ export class Usuario {
     public img?: any,
     public google?: boolean,
     public role?: string,
-    public uid?: String,
+    public uid?: string,
   ) {
 
   }
 
   get getImage() {
 
-    // console.log(this.img);
-
-    if (this.img?.includes('https')) {
+    if (!this.img) {
+      return `${base_url}/upload/usuarios/no-image`;
+    } else if (this.img?.includes('https')) {
       return this.img;
-    }
-
-    if (this.img) {
+    } else if (this.img) {
       return `${base_url}/upload/usuarios/${this.img}`
-    }
-    else {
+    } else {
       return `${base_url}/upload/usuarios/not-image`
     }
   }
